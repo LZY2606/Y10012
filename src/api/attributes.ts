@@ -9,8 +9,8 @@ import { innerText, textContent } from 'domutils';
 import type { Cheerio } from '../cheerio.js';
 import { text } from '../static.js';
 import { camelCase, cssCase, domEach } from '../utils.js';
+import { getClass, modifyClass, splitClassNames } from './class-list.js';
 
-const rspace = /\s+/;
 const dataAttrPrefix = 'data-';
 
 // Attributes that are booleans
@@ -840,17 +840,6 @@ function removeAttribute(elem: Element, name: string) {
 }
 
 /**
- * Splits a space-separated list of names to individual names.
- *
- * @category Attributes
- * @param names - Names to split.
- * @returns - Split names.
- */
-function splitNames(names?: string): string[] {
-  return names ? names.trim().split(rspace) : [];
-}
-
-/**
  * Method for removing attributes by `name`.
  *
  * @category Attributes
@@ -873,7 +862,7 @@ export function removeAttr<T extends AnyNode>(
   this: Cheerio<T>,
   name: string,
 ): Cheerio<T> {
-  const attrNames = splitNames(name);
+  const attrNames = splitClassNames(name, true);
 
   for (const attrName of attrNames) {
     domEach(this, (elem) => {
@@ -909,28 +898,11 @@ export function hasClass<T extends AnyNode>(
   this: Cheerio<T>,
   className: string,
 ): boolean {
-  return this.toArray().some((elem) => {
-    const clazz = isTag(elem) && elem.attribs['class'];
+  for (let i = 0; i < this.length; i++) {
+    if (getClass(this[i], className)) return true;
+  }
 
-    if (clazz && className.length > 0) {
-      for (
-        let idx = clazz.indexOf(className);
-        idx > -1;
-        idx = clazz.indexOf(className, idx + 1)
-      ) {
-        const end = idx + className.length;
-
-        if (
-          (idx === 0 || rspace.test(clazz[idx - 1])) &&
-          (end === clazz.length || rspace.test(clazz[end]))
-        ) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  });
+  return false;
 }
 
 /**
@@ -964,7 +936,7 @@ export function addClass<T extends AnyNode, R extends ArrayLike<T>>(
         return;
       }
 
-      const className = el.attribs['class'] || '';
+      const className = getClass(el) ?? '';
       addClass.call([el], value.call(el, i, className));
     });
   }
@@ -972,33 +944,13 @@ export function addClass<T extends AnyNode, R extends ArrayLike<T>>(
   // Return if no value or not a string or function
   if (!value || typeof value !== 'string') return this;
 
-  const classNames = value.split(rspace);
-  const numElements = this.length;
+  // Input tokens are split as-is, without trimming.
+  const classNames = splitClassNames(value, false);
 
-  for (let i = 0; i < numElements; i++) {
-    const el = this[i];
+  return domEach(this, (el) => {
     // If selected element isn't a tag, move on
-    if (!isTag(el)) continue;
-
-    // If we don't already have classes — always set xmlMode to false here, as it doesn't matter for classes
-    const className = getAttr(el, 'class', false);
-
-    if (className) {
-      let setClass = ` ${className} `;
-
-      // Check if class already exists
-      for (const cn of classNames) {
-        const appendClass = `${cn} `;
-        if (!setClass.includes(` ${appendClass}`)) setClass += appendClass;
-      }
-
-      setAttr(el, 'class', setClass.trim());
-    } else {
-      setAttr(el, 'class', classNames.join(' ').trim());
-    }
-  }
-
-  return this;
+    if (isTag(el)) modifyClass(el, classNames, 'add');
+  });
 }
 
 /**
@@ -1031,43 +983,17 @@ export function removeClass<T extends AnyNode, R extends ArrayLike<T>>(
   if (typeof name === 'function') {
     return domEach(this, (el, i) => {
       if (isTag(el)) {
-        removeClass.call([el], name.call(el, i, el.attribs['class'] || ''));
+        removeClass.call([el], name.call(el, i, getClass(el) ?? ''));
       }
     });
   }
 
-  const classes = splitNames(name);
-  const numClasses = classes.length;
   const removeAll = arguments.length === 0;
+  // Attribute tokens are trimmed before splitting.
+  const classes = removeAll ? undefined : splitClassNames(name, true);
 
   return domEach(this, (el) => {
-    if (!isTag(el)) return;
-
-    if (removeAll) {
-      // Short circuit the remove all case as this is the nice one
-      el.attribs['class'] = '';
-    } else {
-      const elClasses = splitNames(el.attribs['class']);
-      let changed = false;
-
-      for (let j = 0; j < numClasses; j++) {
-        const index = elClasses.indexOf(classes[j]);
-
-        if (index !== -1) {
-          elClasses.splice(index, 1);
-          changed = true;
-
-          /*
-           * We have to do another pass to ensure that there are not duplicate
-           * classes listed
-           */
-          j--;
-        }
-      }
-      if (changed) {
-        el.attribs['class'] = elClasses.join(' ');
-      }
-    }
+    if (isTag(el)) modifyClass(el, classes, 'remove');
   });
 }
 
@@ -1110,7 +1036,7 @@ export function toggleClass<T extends AnyNode, R extends ArrayLike<T>>(
       if (isTag(el)) {
         toggleClass.call(
           [el],
-          value.call(el, i, el.attribs['class'] || '', stateVal),
+          value.call(el, i, getClass(el) ?? '', stateVal),
           stateVal,
         );
       }
@@ -1120,34 +1046,13 @@ export function toggleClass<T extends AnyNode, R extends ArrayLike<T>>(
   // Return if no value or not a string or function
   if (!value || typeof value !== 'string') return this;
 
-  const classNames = value.split(rspace);
-  const numClasses = classNames.length;
-  const state = typeof stateVal === 'boolean' ? (stateVal ? 1 : -1) : 0;
-  const numElements = this.length;
+  // Input tokens are split as-is, without trimming.
+  const classNames = splitClassNames(value, false);
+  const state: -1 | 0 | 1 =
+    typeof stateVal === 'boolean' ? (stateVal ? 1 : -1) : 0;
 
-  for (let i = 0; i < numElements; i++) {
-    const el = this[i];
+  return domEach(this, (el) => {
     // If selected element isn't a tag, move on
-    if (!isTag(el)) continue;
-
-    const elementClasses = splitNames(el.attribs['class']);
-
-    // Check if class already exists
-    for (let j = 0; j < numClasses; j++) {
-      // Check if the class name is currently defined
-      const index = elementClasses.indexOf(classNames[j]);
-
-      // Add if stateValue === true or we are toggling and there is no value
-      if (state >= 0 && index === -1) {
-        elementClasses.push(classNames[j]);
-      } else if (state <= 0 && index !== -1) {
-        // Otherwise remove but only if the item exists
-        elementClasses.splice(index, 1);
-      }
-    }
-
-    el.attribs['class'] = elementClasses.join(' ');
-  }
-
-  return this;
+    if (isTag(el)) modifyClass(el, classNames, 'toggle', state);
+  });
 }
