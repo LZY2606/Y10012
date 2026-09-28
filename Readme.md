@@ -189,13 +189,13 @@ development and support.
 <!-- BEGIN SPONSORS: headliner -->
 
 <a href="https://www.scrapingbee.com/" target="_blank" rel="noopener noreferrer">
-            <img height="128px" width="128px" src="https://humble.imgix.net/https%3A%2F%2Fimages.opencollective.com%2Fscrapingbee%2F6d5dc95%2Flogo.png?ixlib=js-3.8.0&w=128&h=128&fit=fillmax&fill=solid&s=c21a60153bbb00aade922fe9254436e6" title="ScrapingBee" alt="ScrapingBee"></img>
+            <img height="128px" width="128px" src="https://humble.imgix.net/https%3A%2F%2Fimages.opencollective.com%2Fscrapingbee%2F6d5dc95%2Flogo.png?ixlib=js-3.8.0&w=128&h=128&fit=fillmax&fill=solid" title="ScrapingBee" alt="ScrapingBee"></img>
           </a>
 <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
-            <img height="128px" width="128px" src="https://humble.imgix.net/https%3A%2F%2Favatars.githubusercontent.com%2Fgithub?ixlib=js-3.8.0&w=128&h=128&fit=fillmax&fill=solid&s=65172918690f124c0adebece30c66471" title="Github" alt="Github"></img>
+            <img height="128px" width="128px" src="https://humble.imgix.net/https%3A%2F%2Favatars.githubusercontent.com%2Fgithub?ixlib=js-3.8.0&w=128&h=128&fit=fillmax&fill=solid" title="Github" alt="Github"></img>
           </a>
 <a href="https://www.airbnb.com/" target="_blank" rel="noopener noreferrer">
-            <img height="128px" width="128px" src="https://humble.imgix.net/https%3A%2F%2Favatars.githubusercontent.com%2Fairbnb?ixlib=js-3.8.0&w=128&h=128&fit=fillmax&fill=solid&s=e679125f79ca84598b8f8420b581dea5" title="AirBnB" alt="AirBnB"></img>
+            <img height="128px" width="128px" src="https://humble.imgix.net/https%3A%2F%2Favatars.githubusercontent.com%2Fairbnb?ixlib=js-3.8.0&w=128&h=128&fit=fillmax&fill=solid" title="AirBnB" alt="AirBnB"></img>
           </a>
 
 <!-- END SPONSORS -->
@@ -205,13 +205,13 @@ development and support.
 <!-- BEGIN SPONSORS: sponsor -->
 
 <a href="https://onlinecasinosspelen.com" target="_blank" rel="noopener noreferrer">
-            <img height="64px" width="64px" src="https://humble.imgix.net/https%3A%2F%2Fimages.opencollective.com%2Fonlinecasinosspelen%2F99ac6a2%2Flogo.png?ixlib=js-3.8.0&w=64&h=64&fit=fillmax&fill=solid&s=8ec1ec058845b823858f22205485be02" title="OnlineCasinosSpelen" alt="OnlineCasinosSpelen"></img>
+            <img height="64px" width="64px" src="https://humble.imgix.net/https%3A%2F%2Fimages.opencollective.com%2Fonlinecasinosspelen%2F99ac6a2%2Flogo.png?ixlib=js-3.8.0&w=64&h=64&fit=fillmax&fill=solid" title="OnlineCasinosSpelen" alt="OnlineCasinosSpelen"></img>
           </a>
 <a href="https://Nieuwe-Casinos.net" target="_blank" rel="noopener noreferrer">
-            <img height="64px" width="64px" src="https://humble.imgix.net/https%3A%2F%2Fimages.opencollective.com%2Fnieuwecasinos%2Fc67d423%2Flogo.png?ixlib=js-3.8.0&w=64&h=64&fit=fillmax&fill=solid&s=ed55d86b80b1aa8cf89b033020521945" title="Nieuwe-Casinos.net" alt="Nieuwe-Casinos.net"></img>
+            <img height="64px" width="64px" src="https://humble.imgix.net/https%3A%2F%2Fimages.opencollective.com%2Fnieuwecasinos%2Fc67d423%2Flogo.png?ixlib=js-3.8.0&w=64&h=64&fit=fillmax&fill=solid" title="Nieuwe-Casinos.net" alt="Nieuwe-Casinos.net"></img>
           </a>
 <a href="https://www.rapidproxy.io/?ref=cheerio" target="_blank" rel="noopener noreferrer">
-            <img height="64px" width="64px" src="https://humble.imgix.net/https%3A%2F%2Fwww.rapidproxy.io%2Fstatic%2Frapidproxy%2Fimages%2Fhd_ft_public%2Frapidproxy_logo.webp?ixlib=js-3.8.0&w=64&h=64&fit=fillmax&fill=solid&rect=0%2C0%2C92%2C92&s=7317259362cd11f1050c21616be6d02f" title="Rapidproxy" alt="Rapidproxy"></img>
+            <img height="64px" width="64px" src="https://humble.imgix.net/https%3A%2F%2Fwww.rapidproxy.io%2Fstatic%2Frapidproxy%2Fimages%2Fhd_ft_public%2Frapidproxy_logo.webp?ixlib=js-3.8.0&w=64&h=64&fit=fillmax&fill=solid&rect=0%2C0%2C92%2C92" title="Rapidproxy" alt="Rapidproxy"></img>
           </a>
 
 <!-- END SPONSORS -->
@@ -224,7 +224,7 @@ support for Cheerio and help us maintain and improve this open source project.
 <!-- BEGIN SPONSORS: backer -->
 
 <a href="https://kafidoff.com" target="_blank" rel="noopener noreferrer">
-            <img height="64px" width="64px" src="https://humble.imgix.net/https%3A%2F%2Fimages.opencollective.com%2Fkafidoff-vasy%2Fd7ff85c%2Favatar.png?ixlib=js-3.8.0&w=64&h=64&fit=fillmax&fill=solid&s=a41c66c2f9b1d3a7a241e425e7aa2d09" title="Vasy Kafidoff" alt="Vasy Kafidoff"></img>
+            <img height="64px" width="64px" src="https://humble.imgix.net/https%3A%2F%2Fimages.opencollective.com%2Fkafidoff-vasy%2Fd7ff85c%2Favatar.png?ixlib=js-3.8.0&w=64&h=64&fit=fillmax&fill=solid" title="Vasy Kafidoff" alt="Vasy Kafidoff"></img>
           </a>
 
 <!-- END SPONSORS -->
